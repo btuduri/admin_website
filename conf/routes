@@ -1,0 +1,31 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index()
+
+#########
+# admin
+#########################
+# admin gestion des users
+GET     /user                       controllers.UserCtl.index()
+GET     /user/new                   controllers.UserCtl.show()
+POST    /user                       controllers.UserCtl.create()
+
+##########################
+# admin gestion des compos
+GET     /compo                      controllers.CompoCtl.index()
+GET     /compo/new                  controllers.CompoCtl.show()
+POST    /compo                      controllers.CompoCtl.create()
+
+##########################
+# upload des prods
+GET     /production                 controllers.ProductionCtl.index()
+GET     /production/new             controllers.ProductionCtl.show()
+POST    /production                 controllers.ProductionCtl.upload()
+
+GET     /webjars/*file              controllers.WebJarAssets.at(file)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

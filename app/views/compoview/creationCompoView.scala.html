@@ -1,0 +1,25 @@
+@(formCompo: Form[Compo])
+
+@import helper._
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap.min.css"))'>
+    <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
+    <title>compo creation formulaire</title>
+</head>
+<body>
+    @form(routes.CompoCtl.create()) {
+        <fieldset>
+            @inputText(formCompo("name"))
+            @inputText(formCompo("startDate"))
+            @inputText(formCompo("endDate"))
+        </fieldset>
+        <input type="submit" value="Creer compo" class="btn btn-primary">
+        &nbsp;
+        <a class="btn" href="@routes.CompoCtl.index()"> Annuler</a>
+    }
+</body>
+</html>

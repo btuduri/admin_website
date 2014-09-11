@@ -1,0 +1,25 @@
+@(listCompos: List[Compo])
+<!DOCTYPE html>
+
+<html>
+<head>
+     <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap.min.css"))'>
+    <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
+    <title>Creation compo index</title>
+</head>
+<body>
+    @if(listCompos.isEmpty) {
+       <p>Aucune compos de définies</p>
+    } else {
+        <ul>
+        @for(compo <- listCompos) {
+            <li> <strong> name : </strong> @compo.name <br />
+                 <strong> date debut : </strong> @compo.startDate.format("dd-MM-yyyy HH:mm:ss")<br />
+                 <strong> date fin : </strong> @compo.endDate.format("dd-MM-yyyy HH:mm:ss")
+           </li>
+        }
+        </ul>
+    }
+    <a class="btn btn-success" id="add" href=@routes.CompoCtl.show()>Créer une nouvelle compo</a>
+</body>
+</html>
