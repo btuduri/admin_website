@@ -26,16 +26,42 @@ public class Compo extends Model {
     @Formats.DateTime(pattern="dd-MM-yyyy HH:mm:ss")
     public Date endDate;
 
+    @Required
+    public String directoryPath;
+
+    @Required
+    public boolean voteOpen;
+
+    @Required
+    public boolean uploadOpen;
 
     public Compo() {
     }
 
     public Compo(final String aName,
                  final Date aStartDate,
-                 final Date aEndDate) {
+                 final Date aEndDate,
+                 final String aDirectoryPath,
+                 final boolean aVoteOpen,
+                 final boolean aUploadOpen) {
         name = aName;
         startDate = aStartDate;
         endDate = aEndDate;
+        directoryPath = aDirectoryPath;
+        voteOpen = aVoteOpen;
+        uploadOpen = aUploadOpen;
+    }
+
+
+
+
+    public String toString() {
+        return "compo name: " + name +
+               " startDate: " + startDate +
+               "endDate: " + endDate +
+               " directoryPath: " + directoryPath +
+               " voteOpen: " + voteOpen +
+               " uploadOpen: " + uploadOpen;
     }
 
     public static Finder<Long, Compo> find =

@@ -51,13 +51,20 @@ public class UserCtl extends Controller {
             );
         }
 
-       Votekey votekey = new Votekey();
+       Votekey votekey;
 
         Logger.error("salut grenouille");
         Logger.debug("votekey. = " + filledForm.field("votekey").value());
 
-       votekey.find.where("votekey=" + 
+       votekey = Votekey.find.where().eq("votekey",
                 filledForm.field("votekey").value()).findUnique();
+
+        if (votekey == null) {
+            filledForm.reject("votekey","la cle est inconnue ou invalide");
+            return badRequest(
+                    creationUserView.render(filledForm)
+            );
+        }
 
         if (votekey.user != null) {
             filledForm.reject("votekey", "la cle a deja ete assignée");
@@ -70,6 +77,11 @@ public class UserCtl extends Controller {
         //votekey.save();
 
         filledForm.get().save();
+        Logger.debug("filledform = " + filledForm.get());
+        votekey.user = filledForm.get();
+        Logger.debug("votekey= " + votekey);
+        votekey.votekey = filledForm.field("votekey").value();
+        votekey.save();
 
         return GO_HOME;
     }

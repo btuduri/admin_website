@@ -15,7 +15,8 @@
         @for(compo <- listCompos) {
             <li> <strong> name : </strong> @compo.name <br />
                  <strong> date debut : </strong> @compo.startDate.format("dd-MM-yyyy HH:mm:ss")<br />
-                 <strong> date fin : </strong> @compo.endDate.format("dd-MM-yyyy HH:mm:ss")
+                 <strong> date fin : </strong> @compo.endDate.format("dd-MM-yyyy HH:mm:ss")<br />
+                 <strong> directory : </strong> @compo.directoryPath
            </li>
         }
         </ul>

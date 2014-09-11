@@ -20,8 +20,9 @@ public class User extends Model {
     public String groupname;
 
     @OneToOne(mappedBy="user")
+    @Transient
     @Required
-    public Votekey  votekey;
+    public String  votekey;
 
     public User() {
     }
@@ -40,10 +41,14 @@ public class User extends Model {
                 final String passWord,
                 final String nickName,
                 final String groupName,
-                final Votekey voteKey) {
+                final String voteKey) {
         this(userName, passWord,
              nickName, groupName);
         votekey = voteKey;
+    }
+
+    public String toString() {
+        return "obj User: " + username + " cle vote saisie=" + votekey;
     }
 
     public static Finder<Long, User> find =

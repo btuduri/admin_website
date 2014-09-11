@@ -29,6 +29,10 @@ public class Votekey extends Model {
         votekey = voteKey;
     }
 
+    public String toString() {
+        return "obj Votekey: " + user + "votekey: " + votekey;
+    }
+
     public static Finder<Long, Votekey> find =
                     new Finder<Long, Votekey>(Long.class, Votekey.class);
 }
