@@ -11,6 +11,7 @@ import models.*;
 
 import java.nio.file.*;
 
+
 public class CompoCtl extends Controller {
 
     public static Result GO_HOME = redirect(
@@ -39,6 +40,15 @@ public class CompoCtl extends Controller {
         Logger.info("voteOpen = " + filledForm.field("voteOpen"));
         Logger.info("uploadOpen = " + filledForm.field("uploadOpen"));
 
+        Compo c = Compo.find.where().eq("name", filledForm.field("name").value()).findUnique();
+
+        if (c != null) {
+            //d_nok
+            filledForm.reject("name", "la competition a deja ete renseignee");
+            return badRequest(
+                creationCompoView.render(filledForm)
+            );
+        }
 
         if (filledForm.hasErrors()) {
             Logger.info("I ve some errors");
