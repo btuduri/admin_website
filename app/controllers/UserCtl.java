@@ -29,34 +29,36 @@ public class UserCtl extends Controller {
 
     public static Result create() {
         Form<User> filledForm = formulaire.bindFromRequest();
-        Logger.debug("1");
         if (filledForm.hasErrors()) {
             if (filledForm.field("username").valueOr("").isEmpty()) {
-            Logger.debug("2");
                 filledForm.reject("username", "le nom est nécéssaire");
             }
-            
+
             if (filledForm.field("password").valueOr("").isEmpty()) {
-            Logger.debug("3");
                 filledForm.reject("password", "le mot de passe est necessaire");
             }
-            
+
             if (filledForm.field("votekey").valueOr("").isEmpty()) {
-            Logger.debug("4");
                 filledForm.reject("votekey", "la cle de vote est necessaire");
             }
-            Logger.debug("5");
             return badRequest(
                 creationUserView.render(filledForm)
             );
         }
 
-       Votekey votekey;
 
-        Logger.error("salut grenouille");
+        User u = User.find.where().eq("username", filledForm.field("username").value()).findUnique();
+
+        if (u != null) {
+            filledForm.reject("username", "l'utilisateur est enregistré");
+            return badRequest(
+                    creationUserView.render(filledForm)
+            );
+        }
+
         Logger.debug("votekey. = " + filledForm.field("votekey").value());
 
-       votekey = Votekey.find.where().eq("votekey",
+        Votekey votekey = Votekey.find.where().eq("votekey",
                 filledForm.field("votekey").value()).findUnique();
 
         if (votekey == null) {
@@ -74,7 +76,6 @@ public class UserCtl extends Controller {
             );
         }
 
-        //votekey.save();
 
         filledForm.get().save();
         Logger.debug("filledform = " + filledForm.get());
