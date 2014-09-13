@@ -52,6 +52,10 @@ public class Production extends Model {
         uploadDate = aUploadDate;
     }
 
+    public String toString() {
+        return "name prod: " + name + " comment: " + comment + " user obj: " + user + "compo: " + compo + " filename: " + filename + "upload date: " + uploadDate;
+    }
+
     public static Finder<Long, Production> find =
                     new Finder<Long, Production>(Long.class, Production.class);
 }
