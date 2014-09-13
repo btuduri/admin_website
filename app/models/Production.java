@@ -23,7 +23,7 @@ public class Production extends Model {
     @Required
     public String comment;
 
-    @ManyToOne
+    @ManyToOne()
     public String user;
 
     @ManyToOne
