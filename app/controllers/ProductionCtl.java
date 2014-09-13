@@ -92,16 +92,6 @@ public class ProductionCtl extends Controller {
 
         if (p == null) {
             p =filledForm.get();
-:q
-:q
-:q
-
-
-
-
-:q
-
-
             p.filename = prod.getFilename();
         } else {
             p.name = filledForm.field("name").value();
