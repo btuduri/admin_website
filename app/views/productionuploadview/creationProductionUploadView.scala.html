@@ -15,7 +15,9 @@
         <fieldset>
             @inputText(formProduction("name"))
             @inputText(formProduction("comment"))
-            @inputFile(formProduction("picture"))
+            @select(formProduction("compo"), options(Compo.options()))
+            @select(formProduction("user"), options(User.options()))
+            @inputFile(formProduction("filename"))
         </fieldset>
         <input type="submit" value="Publier production" class="btn btn-primary">
         &nbsp;

@@ -24,10 +24,10 @@ public class Production extends Model {
     public String comment;
 
     @ManyToOne
-    public User user;
+    public String user;
 
     @ManyToOne
-    public Compo compo;
+    public String compo;
 
     public String filename;
 
@@ -40,8 +40,8 @@ public class Production extends Model {
 
     public Production(final String aName,
                       final String aComment,
-                      final User aUser,
-                      final Compo aCompo,
+                      final String aUser,
+                      final String aCompo,
                       final String aFilename,
                       final Date aUploadDate) {
         name = aName;

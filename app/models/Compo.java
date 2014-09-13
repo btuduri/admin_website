@@ -12,6 +12,8 @@ import play.data.validation.Constraints.*;
 
 import com.avaje.ebean.*;
 
+import play.*;
+
 @Entity
 public class Compo extends Model {
     @Id
@@ -54,6 +56,17 @@ public class Compo extends Model {
 
 
 
+    public static Map<String,String> options() {
+        @SuppressWarnings("unchecked")
+        List<Compo> compos = find.where().eq("uploadOpen",true).orderBy("name ASC").findList();
+        Logger.debug("--liste des compos--");
+        Logger.debug(compos.toString());
+        LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+        for(Compo c: compos) {
+            options.put(c.id.toString(), c.name);
+        }
+        return options;
+    }
 
     public String toString() {
         return "compo name: " + name +

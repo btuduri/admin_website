@@ -12,6 +12,7 @@ import models.*;
 import play.mvc.Http.MultipartFormData.FilePart;
 import java.nio.file.*;
 import java.io.*;
+import java.util.*;
 
 public class ProductionCtl extends Controller {
 
@@ -34,7 +35,7 @@ public class ProductionCtl extends Controller {
     public static Result upload() {
         Form<Production> filledForm = formulaire.bindFromRequest();
         MultipartFormData body = request().body().asMultipartFormData();
-        FilePart prod = body.getFile("picture");
+        FilePart prod = body.getFile("filename");
 
         if (prod == null) {
                 Logger.debug("probleme upload fichier");
@@ -44,30 +45,30 @@ public class ProductionCtl extends Controller {
                 );
         }
 
-        Logger.info("1");;
         try {
-            Logger.info("2");
             Files.move(prod.getFile().toPath(), Paths.get("/tmp", prod.getFilename()), StandardCopyOption.REPLACE_EXISTING);
-            Logger.info("3");
        } catch (IOException ioe) {
-            Logger.info("4");
             Logger.debug(ioe.getMessage());
-            Logger.info("5");
         }
 
-        Logger.info("6");
         Logger.info(" filledForm created ");
+        Logger.info("compo = " + filledForm.field("compo").value());
         Logger.info("name = " + filledForm.field("name").value());
         Logger.info("comment = " + filledForm.field("comment").value());
+        Logger.info("filename uploaded = " + prod.getFilename());
+        Logger.info("user = " + filledForm.field("user").value());
 
         if (filledForm.hasErrors()) {
            Logger.info("I ve some errors");
+            Logger.error(filledForm.error("compo").message());
            return badRequest(
                 creationProductionUploadView.render(filledForm)
             );
        }
 
-        filledForm.get().save();
+        Production p = filledForm.get();
+        p.filename = prod.getFilename();
+        p.save();
         return GO_HOME;
     }
 }

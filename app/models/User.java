@@ -8,6 +8,9 @@ import play.data.validation.Constraints.*;
 
 import com.avaje.ebean.*;
 
+import java.util.*;
+import play.*;
+
 @Entity
 public class User extends Model {
     @Id
@@ -45,6 +48,18 @@ public class User extends Model {
         this(userName, passWord,
              nickName, groupName);
         votekey = voteKey;
+    }
+
+    public static Map<String,String> options() {
+        @SuppressWarnings("unchecked")
+        List<User> users = find.where().orderBy("username ASC").findList();
+        Logger.debug("--liste des users--");
+        Logger.debug(users.toString());
+        LinkedHashMap<String,String> options = new LinkedHashMap<String,String>();
+        for(User u: users) {
+            options.put(u.id.toString(), u.username);
+        }
+        return options;
     }
 
     public String toString() {
