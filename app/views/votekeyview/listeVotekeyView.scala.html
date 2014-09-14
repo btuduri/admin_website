@@ -1,0 +1,29 @@
+@(listVotekeys: List[Votekey])
+<!DOCTYPE html>
+
+<html>
+<head>
+     <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap.min.css"))'>
+    <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
+    <title>Creation cle de vote</title>
+</head>
+<body>
+    @if(listVotekeys.isEmpty) {
+       <p>Aucune clé de vote disponible.</p>
+    } else {
+        <ul>
+        @for(votekey <- listVotekeys) {
+            <li> <strong>votkey  : </strong> @votekey.votekey <br />
+            @if(votekey.user == null) {
+                <strong> username : </strong> non assignée <br />
+            } else {
+                <strong> username : </strong> @votekey.user.username </li>
+            }
+        }
+        </ul>
+    }
+    <a class="btn btn-success" id="add" href=@routes.VotekeyCtl.show()>Créer clé de vote</a>
+    &nbsp;
+    <a class="btn" href="@routes.Application.index()">Retour au menu general</a>
+</body>
+</html>

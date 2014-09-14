@@ -30,6 +30,11 @@ POST    /production                 controllers.ProductionCtl.upload()
 GET     /vote                       controllers.VoteCtl.show()
 POST    /vote                       controllers.VoteCtl.vote()
 
+###############################
+# creation des cles de votes
+GET     /votekey                   controllers.VotekeyCtl.index()
+GET     /votekey/new               controllers.VotekeyCtl.show()
+POST    /votekey                   controllers.VotekeyCtl.create()
 
 GET     /webjars/*file              controllers.WebJarAssets.at(file)
 
