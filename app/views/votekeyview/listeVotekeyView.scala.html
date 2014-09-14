@@ -22,8 +22,10 @@
         }
         </ul>
     }
+    @if(listVotekeys.isEmpty) {
     <a class="btn btn-success" id="add" href=@routes.VotekeyCtl.show()>Créer clé de vote</a>
     &nbsp;
+    }
     <a class="btn" href="@routes.Application.index()">Retour au menu general</a>
 </body>
 </html>

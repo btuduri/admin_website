@@ -9,12 +9,14 @@ import views.html.votekeyview.*;
 
 import models.*;
 
+import java.util.*;
+
 public class VotekeyCtl extends Controller {
 
     public static Result GO_HOME = redirect(
            routes.VotekeyCtl.index()); 
 
-    static Form<Votekey> formulaire = form(Votekey.class);
+    static Form<VotekeyGeneration> formulaire = form(VotekeyGeneration.class);
 
     public static Result index() {
         return ok(
@@ -24,62 +26,29 @@ public class VotekeyCtl extends Controller {
     }
 
     public static Result show() {
-        //return ok(creationCompoView.render(formulaire));
-        return TODO;
+        return ok(creationVotekeyView.render(formulaire));
+        //return TODO;
     }
 
     public static Result create() {
-        /*
-        Form<Compo> filledForm = formulaire.bindFromRequest();
-        Logger.info(" filledForm created ");
-        Logger.info("date start = " + filledForm.field("startDate").value());
-        Logger.info("date end = " + filledForm.field("endDate").value());
-        Logger.info("nom event = " + filledForm.field("name").value());
-        Logger.info("directory path = " + filledForm.field("directory"));
-        Logger.info("voteOpen = " + filledForm.field("voteOpen"));
-        Logger.info("uploadOpen = " + filledForm.field("uploadOpen"));
+        Long number;
+        Form<VotekeyGeneration> filledForm = formulaire.bindFromRequest();
 
-        Compo c = Compo.find.where().eq("name", filledForm.field("name").value()).findUnique();
-
-        if (c != null) {
-            //d_nok
-            filledForm.reject("name", "la competition a deja ete renseignee");
-            return badRequest(
-                creationCompoView.render(filledForm)
-            );
-        }
-
-        if (filledForm.hasErrors()) {
-            Logger.info("I ve some errors");
-            return badRequest(
-                creationCompoView.render(filledForm)
-            );
-        }
-
-        Path p;
         try {
-            Logger.info("---" + filledForm.field("directoryPath").value());
-            p = Paths.get(filledForm.field("directoryPath").value());
-        } catch (InvalidPathException ipe) {
-            filledForm.reject("directoryPath", ipe.getMessage());
+            number = Long.parseLong(filledForm.field("number").value());
+        } catch (NumberFormatException nfe) {
+            filledForm.reject("number", "veuillez entrer un nombre valide");
             return badRequest(
-                creationCompoView.render(filledForm)
-            );
-        }
-        Logger.info(p.toString());
-
-        //attempt to check the read/write rights
-        if (!Files.isReadable(p) || !Files.isWritable(p)) {
-            filledForm.reject("directoryPath","the directory rights are not correct. Must be readable/writable");
-            return badRequest(
-                creationCompoView.render(filledForm)
+                creationVotekeyView.render(filledForm)
             );
         }
 
-        filledForm.get().save();
+        VotekeyGeneration vkg = new VotekeyGeneration(number);
+        List<Votekey> l = vkg.generate();
+        for (Votekey v : l) {
+            v.save();
+        }
 
         return GO_HOME;
-        */
-        return TODO;
     }
 }
