@@ -27,6 +27,9 @@ public class User extends Model {
     @Required
     public String  votekey;
 
+    @OneToOne(mappedBy="user")
+    public Vote vote;
+
     public User() {
     }
 

@@ -37,6 +37,9 @@ public class Compo extends Model {
     @Required
     public boolean uploadOpen;
 
+    @OneToOne(mappedBy="compo")
+    public Vote vote;
+
     public Compo() {
     }
 

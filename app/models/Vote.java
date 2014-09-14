@@ -14,13 +14,13 @@ public class Vote extends Model {
     @Id
     public Long id;
 
-    @ManyToMany
+    @OneToOne()
     public User user;
 
-    @ManyToMany
+    @OneToOne()
     public Compo compo;
 
-    @ManyToMany
+    @OneToOne()
     public Production production;
 
     @Required

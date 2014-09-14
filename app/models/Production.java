@@ -34,6 +34,8 @@ public class Production extends Model {
     @Formats.DateTime(pattern="dd-MM-yyyy HH:mm:ss")
     public Date uploadDate;
 
+    @OneToOne(mappedBy="production")
+    public Vote vote;
 
     public Production() {
     }
