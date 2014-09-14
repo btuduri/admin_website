@@ -9,6 +9,7 @@ import play.data.validation.Constraints.*;
 import com.avaje.ebean.*;
 import play.*;
 
+@Entity
 public class Vote extends Model {
     @Id
     public Long id;

@@ -51,7 +51,6 @@ public class ProductionCtl extends Controller {
 
         if (filledForm.hasErrors()) {
            Logger.info("I ve some errors");
-            Logger.error(filledForm.error("compo").message());
            return badRequest(
                 creationProductionUploadView.render(filledForm)
             );
@@ -73,7 +72,6 @@ public class ProductionCtl extends Controller {
 
         MultipartFormData body = request().body().asMultipartFormData();
         FilePart prod = body.getFile("filename");
-        Logger.info("filename uploaded = " + prod.getFilename());
 
         if (prod == null) {
                 Logger.debug("probleme upload fichier");
@@ -82,6 +80,7 @@ public class ProductionCtl extends Controller {
                     creationProductionUploadView.render(filledForm)
                 );
         }
+        Logger.info("filename uploaded = " + prod.getFilename());
 
         try {
             Files.move(prod.getFile().toPath(), Paths.get("/tmp", prod.getFilename()), StandardCopyOption.REPLACE_EXISTING);
