@@ -61,10 +61,25 @@ public class ProductionCtl extends Controller {
                 .eq("compo",
                     filledForm.field("compo").value()).findUnique();
 
+        Compo comp = Compo.find.where().eq("compo",
+            filledForm.field("compo").value())
+                .findUnique();
+
+        if (comp == null) {
+            filledForm.reject("compo", "la compo est invalide !!!");
+            return badRequest(
+                creationProductionUploadView.render(filledForm)
+            );
+        }
+
+        String uploadDirectory = comp.directoryPath;
+        Logger.info("directoryPath: " + uploadDirectory);
+
         if (p != null) {
             try {
-                Logger.debug("---> suppression de l'ancien fichier " + Paths.get("/tmp", p.filename));
-                Files.delete(Paths.get("/tmp", p.filename));
+                Logger.debug("---> suppression de l'ancien fichier " +
+                    Paths.get(uploadDirectory, p.filename));
+                Files.delete(Paths.get(uploadDirectory, p.filename));
             } catch (IOException ioe) {
                 Logger.debug(ioe.getMessage());
             }
@@ -83,7 +98,9 @@ public class ProductionCtl extends Controller {
         Logger.info("filename uploaded = " + prod.getFilename());
 
         try {
-            Files.move(prod.getFile().toPath(), Paths.get("/tmp", prod.getFilename()), StandardCopyOption.REPLACE_EXISTING);
+            Files.move(prod.getFile().toPath(),
+                Paths.get(uploadDirectory, prod.getFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
        } catch (IOException ioe) {
             Logger.debug(ioe.getMessage());
         }

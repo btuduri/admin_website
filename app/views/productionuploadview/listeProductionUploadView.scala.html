@@ -14,7 +14,9 @@
         <ul>
         @for(production <- listProductions) {
             <li> <strong> name : </strong> @production.name <br />
-           </li>
+                 <strong> comment : </strong> @production.comment <br />
+                 <strong> filename : </strong> @production.filename <br />
+            </li>
         }
         </ul>
     }

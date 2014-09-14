@@ -14,11 +14,21 @@ import java.util.*;
 
 public class VoteCtl extends Controller {
     public static Result GO_HOME = redirect(
-           routes.ProductionCtl.index()); 
+           routes.VoteCtl.show());
 
     static Form<Production> formulaire = form(Production.class);
 
     public static Result index() {
+        List<Compo> l = Compo.find.where().eq("uploadOpen", true).findList();
+        if (l != null && l.size() > 0) {
+            return redirect("/");
+        }
+
+        l = Compo.find.where().eq("voteOpen", false).findList();
+         if (l != null && l.size() > 0) {
+            return redirect("/");
+        }
+
         List<Production> p = Production.find
                                 .where()
                                 .orderBy("compo ASC").findList();

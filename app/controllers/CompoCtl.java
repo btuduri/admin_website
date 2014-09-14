@@ -30,6 +30,60 @@ public class CompoCtl extends Controller {
         return ok(creationCompoView.render(formulaire));
     }
 
+    public static Result editForm(Long id) {
+        Compo c = Compo.find.byId(id);
+
+        if (c == null) {
+            return GO_HOME;
+        }
+        Form<Compo> filledForm = form(Compo.class).fill(
+            Compo.find.byId(id)
+        );
+
+        return ok(majCompoView.render(id, filledForm));
+    }
+
+    public static Result update(Long id) {
+        Form<Compo> filledForm = formulaire.bindFromRequest();
+
+        if (filledForm.hasErrors()) {
+            Logger.info("I ve some errors");
+            return badRequest(
+                majCompoView.render(id, filledForm)
+            );
+        }
+        Logger.error("5");
+        Path p;
+        try {
+            Logger.error("6");
+            Logger.info("---" + filledForm.field("directoryPath").value());
+            Logger.error("7");
+            p = Paths.get(filledForm.field("directoryPath").value());
+            Logger.error("8");
+        } catch (InvalidPathException ipe) {
+            Logger.error("9");
+            filledForm.reject("directoryPath", ipe.getMessage());
+            Logger.error("10");
+            return badRequest(
+                majCompoView.render(id, filledForm)
+            );
+        }
+        Logger.info(p.toString());
+
+        //attempt to check the read/write rights
+        if (!Files.isReadable(p) || !Files.isWritable(p)) {
+            filledForm.reject("directoryPath","the directory rights are not correct. Must be readable/writable");
+            return badRequest(
+                majCompoView.render(id, filledForm)
+            );
+        }
+
+        filledForm.get().update(id);
+
+        return GO_HOME;
+
+    }
+
     public static Result create() {
         Form<Compo> filledForm = formulaire.bindFromRequest();
         Logger.info(" filledForm created ");

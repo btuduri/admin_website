@@ -18,6 +18,8 @@ POST    /user                       controllers.UserCtl.create()
 GET     /compo                      controllers.CompoCtl.index()
 GET     /compo/new                  controllers.CompoCtl.show()
 POST    /compo                      controllers.CompoCtl.create()
+GET     /compo/:id                  controllers.CompoCtl.editForm(id: Long)
+POST    /compo/:id                  controllers.CompoCtl.update(id: Long)
 
 ##########################
 # upload des prods
