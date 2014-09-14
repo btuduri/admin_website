@@ -61,7 +61,7 @@ public class ProductionCtl extends Controller {
                 .eq("compo",
                     filledForm.field("compo").value()).findUnique();
 
-        Compo comp = Compo.find.where().eq("compo",
+        Compo comp = Compo.find.where().eq("id",
             filledForm.field("compo").value())
                 .findUnique();
 
