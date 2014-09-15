@@ -16,7 +16,9 @@
             <li> <strong> name : </strong> <a href="@routes.CompoCtl.editForm(compo.id)">@compo.name</a> <br />
                  <strong> date debut : </strong> @compo.startDate.format("dd-MM-yyyy HH:mm:ss")<br />
                  <strong> date fin : </strong> @compo.endDate.format("dd-MM-yyyy HH:mm:ss")<br />
-                 <strong> directory : </strong> @compo.directoryPath
+                 <strong> directory : </strong> @compo.directoryPath<br />
+                 <strong> vote : </strong> @{if(compo.voteOpen) "ouvert" else "fermé" } <br />
+                 <strong> upload : </strong> @{if(compo.uploadOpen) "ouvert" else "fermé" }
            </li>
         }
         </ul>
