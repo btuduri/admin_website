@@ -20,16 +20,19 @@ public class VoteCtl extends Controller {
 
     public static Result index() {
         List<Compo> l = Compo.find.where().eq("uploadOpen", true).findList();
+        Logger.error("-> uploadOpen " + l.size());
         if (l != null && l.size() > 0) {
             return redirect("/");
         }
 
         l = Compo.find.where().eq("voteOpen", false).findList();
+        Logger.error("-> voteOpen " + l.size());
          if (l != null && l.size() > 0) {
             return redirect("/");
         }
 
-        if (l == null || l.size() == 0) {
+        Logger.error("-> vote 3 - " + l.size());
+        if (l == null) {
             return redirect("/");
         }
 
