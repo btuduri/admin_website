@@ -114,7 +114,7 @@ public class ProductionCtl extends Controller {
             p.comment = filledForm.field("comment").value();
             p.filename = prod.getFilename();
         }
-
+        Logger.error("p - "+p);
         p.save();
         return GO_HOME;
     }
