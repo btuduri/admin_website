@@ -16,7 +16,7 @@ public class VoteCtl extends Controller {
     public static Result GO_HOME = redirect(
            routes.VoteCtl.show());
 
-    static Form<Production> formulaire = form(Production.class);
+    static Form<Vote> formulaire = form(Vote.class);
 
     public static Result index() {
         List<Compo> l = Compo.find.where().eq("uploadOpen", true).findList();
@@ -50,7 +50,7 @@ public class VoteCtl extends Controller {
         Logger.debug(p.toString());
         Logger.debug("----");
 
-        return ok(creationVote.render(p));
+        return ok(creationVote.render(p, formulaire));
     }
 
     public static Result show() {
