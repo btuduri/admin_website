@@ -29,6 +29,10 @@ public class VoteCtl extends Controller {
             return redirect("/");
         }
 
+        if (l == null || l.size() == 0) {
+            return redirect("/");
+        }
+
         List<Production> p = Production.find
                                 .where()
                                 .orderBy("compo ASC").findList();
