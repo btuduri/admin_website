@@ -30,6 +30,9 @@ public class User extends Model {
     @OneToOne(mappedBy="user")
     public Vote vote;
 
+    @OneToOne(mappedBy="user")
+    public Production production;
+
     public User() {
     }
 

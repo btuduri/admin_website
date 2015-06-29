@@ -43,8 +43,8 @@ public class VoteCtl extends Controller {
         for (Production e : p) {
             Compo c = Compo.find.where().eq("id",e.compo).findUnique();
             User u = User.find.where().eq("id", e.user).findUnique();
-            e.compo = c.name;
-            e.user = u.username;
+            e.compo.name = c.name;
+            e.user.username = u.username;
         }
         Logger.debug("----");
         Logger.debug(p.toString());

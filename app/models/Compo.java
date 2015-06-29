@@ -40,6 +40,9 @@ public class Compo extends Model {
     @OneToOne(mappedBy="compo")
     public Vote vote;
 
+    @OneToOne(mappedBy="compo")
+    public Production production;
+
     public Compo() {
     }
 
@@ -56,7 +59,6 @@ public class Compo extends Model {
         voteOpen = aVoteOpen;
         uploadOpen = aUploadOpen;
     }
-
 
 
     public static Map<String,String> options() {
